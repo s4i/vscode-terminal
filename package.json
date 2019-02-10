@@ -28,7 +28,8 @@
   ],
   "main": "out/extension.js",
   "contributes": {
-    "commands": [{
+    "commands": [
+      {
         "command": "terminal.run",
         "title": "Run Terminal Command"
       },
@@ -45,7 +46,8 @@
         "title": "Toggle Integrated Terminal"
       }
     ],
-    "keybindings": [{
+    "keybindings": [
+      {
         "command": "terminal.run",
         "key": "ctrl+alt+r"
       },
@@ -63,15 +65,19 @@
       }
     ],
     "menus": {
-      "editor/context": [{
-        "when": "!inOutput",
-        "command": "terminal.open",
-        "group": "navigation@1"
-      }],
-      "explorer/context": [{
-        "command": "terminal.open",
-        "group": "navigation@1"
-      }]
+      "editor/context": [
+        {
+          "when": "!inOutput",
+          "command": "terminal.open",
+          "group": "navigation@1"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "terminal.open",
+          "group": "navigation@1"
+        }
+      ]
     }
   },
   "scripts": {
@@ -85,10 +91,10 @@
     "tree-kill": "^1.2.1"
   },
   "devDependencies": {
-    "typescript": "^3.1.4",
-    "vscode": "^1.1.25",
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.10.40",
     "tslint": "^5.8.0",
-    "@types/node": "^8.10.25",
-    "@types/mocha": "^2.2.42"
+    "typescript": "^3.3.3",
+    "vscode": "^1.1.25"
   }
 }
