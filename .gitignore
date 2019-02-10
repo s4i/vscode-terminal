@@ -3,4 +3,4 @@ node_modules
 .vscode-test
 .vscode
 package-lock.json
-terminal-0.0.1.vsix
+.vscodeignore

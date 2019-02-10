@@ -52,7 +52,7 @@ class Terminal {
         }
 
         let commands = this.getCommands();
-        if (commands.length == 0) {
+        if (commands.length === 0) {
             vscode.window.showInformationMessage('No commands found or selected.');
             return;
         }
@@ -72,10 +72,7 @@ class Terminal {
 
     public open(fileUri?: vscode.Uri): void {
         let filePath: string = "";
-
-        /* Terminal create */
-        let terminal = vscode.window.createTerminal();
-        terminal.show(false);
+        let refresh_command: string = "";
 
         /* Search file path */
         if (!fileUri || typeof fileUri.fsPath !== 'string') {
@@ -87,18 +84,26 @@ class Terminal {
             filePath = fileUri.fsPath;
         }
 
-        let refresh_command: string = "";
-
         if (os.platform() === 'win32') {
             let windowsShell = vscode.workspace.getConfiguration('terminal').get<string>('integrated.shell.windows');
-            if (windowsShell && ['windows', 'bash', 'wsl'].indexOf(windowsShell.toLowerCase()) !== -1) {
-                filePath = filePath.replace(/([A-Za-z]):\\/, this.replacer).replace(/\\/g, '/');
+            if (windowsShell && windowsShell.toLowerCase().indexOf('bash') > -1) {
+                filePath = filePath.replace(/([A-Za-z]):\\/, this.replacer).replace(/\\/g, '/').replace(':', '');
+                refresh_command = "clear";
             }
-            refresh_command = "clear";
+            if (windowsShell && windowsShell.toLowerCase().indexOf('wsl') > -1) {
+                filePath = filePath.replace(/([A-Za-z]):\\/, this.replacer).replace(/\\/g, '/').replace(':', '');
+                refresh_command = "clear";
+            }
         }
-        terminal.sendText(`cd "${path.dirname(filePath)}"`);
+
+        /* Terminal create */
+        let terminal = vscode.window.createTerminal();
+        terminal.show(false);
         if (refresh_command === "clear") {
-            terminal.sendText(refresh_command);
+            Promise.resolve().then(() => { terminal.sendText(`cd "${path.dirname(filePath)}"\n${refresh_command}`); });
+        }
+        else {
+            Promise.resolve().then(() => { terminal.sendText(`cd "${path.dirname(filePath)}"`); });
         }
     }
 
@@ -162,6 +167,6 @@ class Terminal {
     }
 
     private replacer(p1: string): string {
-        return `/mnt/${p1.toLowerCase()}/`;
+        return `/mnt/${p1.toLowerCase()}`;
     }
 }

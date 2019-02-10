@@ -2,7 +2,7 @@
   "name": "terminal",
   "displayName": "Terminal",
   "publisher": "s4i",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.31.0"
   },
@@ -28,8 +28,7 @@
   ],
   "main": "out/extension.js",
   "contributes": {
-    "commands": [
-      {
+    "commands": [{
         "command": "terminal.run",
         "title": "Run Terminal Command"
       },
@@ -46,8 +45,7 @@
         "title": "Toggle Integrated Terminal"
       }
     ],
-    "keybindings": [
-      {
+    "keybindings": [{
         "command": "terminal.run",
         "key": "ctrl+alt+r"
       },
@@ -65,19 +63,15 @@
       }
     ],
     "menus": {
-      "editor/context": [
-        {
-          "when": "!inOutput",
-          "command": "terminal.open",
-          "group": "navigation@1"
-        }
-      ],
-      "explorer/context": [
-        {
-          "command": "terminal.open",
-          "group": "navigation@1"
-        }
-      ]
+      "editor/context": [{
+        "when": "!inOutput",
+        "command": "terminal.open",
+        "group": "navigation@1"
+      }],
+      "explorer/context": [{
+        "command": "terminal.open",
+        "group": "navigation@1"
+      }]
     }
   },
   "scripts": {
