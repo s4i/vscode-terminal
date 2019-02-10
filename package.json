@@ -1,16 +1,13 @@
 {
   "name": "terminal",
   "displayName": "Terminal",
-  "description": "Terminal for Visual Studio Code",
-  "version": "0.0.10",
-  "publisher": "formulahendry",
-  "icon": "images/logo.png",
+  "publisher": "s4i",
+  "version": "0.0.1",
   "engines": {
-    "vscode": "^1.6.0"
+    "vscode": "^1.31.0"
   },
   "categories": [
-    "Other",
-    "Languages"
+    "Programming Languages"
   ],
   "keywords": [
     "Terminal",
@@ -19,14 +16,9 @@
     "CMD",
     "powershell"
   ],
-  "bugs": {
-    "url": "https://github.com/formulahendry/vscode-terminal/issues",
-    "email": "formulahendry@gmail.com"
-  },
-  "homepage": "https://github.com/formulahendry/vscode-terminal/blob/master/README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/formulahendry/vscode-terminal.git"
+    "url": "https://github.com/s4i/vscode-terminal.git"
   },
   "activationEvents": [
     "*",
@@ -34,10 +26,9 @@
     "onCommand:terminal.open",
     "onCommand:terminal.toggle"
   ],
-  "main": "./out/src/extension",
+  "main": "out/extension.js",
   "contributes": {
-    "commands": [
-      {
+    "commands": [{
         "command": "terminal.run",
         "title": "Run Terminal Command"
       },
@@ -54,8 +45,7 @@
         "title": "Toggle Integrated Terminal"
       }
     ],
-    "keybindings": [
-      {
+    "keybindings": [{
         "command": "terminal.run",
         "key": "ctrl+alt+r"
       },
@@ -73,43 +63,32 @@
       }
     ],
     "menus": {
-      "editor/context": [
-        {
-          "when": "!inOutput",
-          "command": "terminal.open",
-          "group": "navigation@1"
-        }
-      ],
-      "explorer/context": [
-        {
-          "command": "terminal.open",
-          "group": "navigation@1"
-        }
-      ]
-    },
-    "configuration": {
-      "type": "object",
-      "title": "Terminal configuration",
-      "properties": {
-        "terminal.enableAppInsights": {
-          "type": "boolean",
-          "default": true,
-          "description": "Whether to enable AppInsights to track user telemetry data."
-        }
-      }
+      "editor/context": [{
+        "when": "!inOutput",
+        "command": "terminal.open",
+        "group": "navigation@1"
+      }],
+      "explorer/context": [{
+        "command": "terminal.open",
+        "group": "navigation@1"
+      }]
     }
   },
   "scripts": {
-    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "dependencies": {
-    "applicationinsights": "^0.17.1",
-    "tree-kill": "^1.1.0"
+    "tree-kill": "^1.2.1"
   },
   "devDependencies": {
-    "typescript": "^1.8.5",
-    "vscode": "^0.11.0"
+    "typescript": "^3.1.4",
+    "vscode": "^1.1.25",
+    "tslint": "^5.8.0",
+    "@types/node": "^8.10.25",
+    "@types/mocha": "^2.2.42"
   }
 }
